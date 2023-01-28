@@ -9,7 +9,6 @@ import UIKit
 
 class ListViewController: BaseViewController {
 
-    //var photoes: [PhotosResponse]?
     var listVMdodel: ListViewModel!
     
     @IBOutlet weak var tblView: UITableView!
@@ -18,6 +17,7 @@ class ListViewController: BaseViewController {
         super.viewDidLoad()
         self.title = "Photoes List"
         
+        tblView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListTableViewCell")
     }
     
 
@@ -29,10 +29,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = listVMdodel[at: indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellID")
-        cell.textLabel?.text = "\(String(describing: model?.photoID))"
-        cell.detailTextLabel?.text = model?.title
-        return cell
+
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as? ListTableViewCell,
+            let model = listVMdodel[at: indexPath.row] {
+            
+            cell.configureCell(using: model)
+            return cell
+        }
+        return UITableViewCell()
     }
 }
