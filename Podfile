@@ -8,5 +8,6 @@ target 'InterViewSampleCode' do
   # Pods for InterViewSampleCode
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'MBProgressHUD'
 
 end

@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class ViewController: UIViewController {
+class ViewController: BaseViewController {
     
     var viewModel: ViewModel!
     
@@ -27,13 +27,18 @@ class ViewController: UIViewController {
         viewModel.photoesList.bind {[weak self] photos in
             if photos.count > 0 {
                 DispatchQueue.main.async {
+                    self?.hideProgressBar()
                     self?.moveToListScreen(with: photos)
                 }
             }
         }.disposed(by: dispose)
         
+        // call the api if no records available
+        if viewModel.photoesList.value.count < 1 {
+            showProgressBar()
+            viewModel.fetchPhotoesFromRemote()
+        }
         
-        viewModel.fetchPhotoesFromRemote()
     }
     
     private func moveToListScreen(with photoes: [PhotosResponse]) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: BaseViewController {
 
     //var photoes: [PhotosResponse]?
     var listVMdodel: ListViewModel!
