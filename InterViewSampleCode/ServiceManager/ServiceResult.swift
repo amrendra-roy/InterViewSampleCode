@@ -16,7 +16,7 @@ enum Result<T, E> where E: Error {
 enum ServiceNetworkError: Error {
     case requestFail
     case invalidURL(urlString: String)
-    case invalidJson(statusCode: Int, error: Error)
+    case invalidJson(statusCode: Int, error: Error?)
     case hostDown
     case networkNotAvailable
     

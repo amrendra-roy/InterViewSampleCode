@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,12 +23,14 @@
                         <rect key="frame" x="8" y="8" width="277.66666666666669" height="80"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T8G-U5-lXs">
-                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                <rect key="frame" x="0.0" y="2.6666666666666643" width="80" height="75"/>
+                                <color key="tintColor" red="0.41960784309999999" green="0.41176470590000003" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="EwP-UH-JXF"/>
                                     <constraint firstAttribute="height" constant="80" id="XM7-M8-Vmo"/>
                                     <constraint firstAttribute="width" secondItem="T8G-U5-lXs" secondAttribute="height" multiplier="1:1" id="bX4-Bv-4LB"/>
                                 </constraints>
+                                <imageReference key="image" image="xmark" catalog="system" symbolScale="default"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="PAD-4I-Oiu">
                                 <rect key="frame" x="87.999999999999986" y="0.0" width="189.66666666666663" height="50.666666666666664"/>
@@ -66,6 +69,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

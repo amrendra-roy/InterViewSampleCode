@@ -30,7 +30,7 @@ class ServiceManager {
             case 200...299:
                 if let responseData = data {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: responseData)
+                        //let json = try JSONSerialization.jsonObject(with: responseData)
                         let jsondData = try JSONDecoder().decode(T.self, from: responseData)
                         completion(.success(jsondData))
                     }catch let error {
@@ -64,7 +64,7 @@ class ServiceManager {
             case 200...299:
                 if let responseData = data {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: responseData)
+                        //let json = try JSONSerialization.jsonObject(with: responseData)
                         let jsondData = try JSONDecoder().decode(T.self, from: responseData)
                         completion(.success(jsondData))
                     }catch let error {
@@ -82,6 +82,32 @@ class ServiceManager {
         })
         task.resume()
         
+    }
+    
+    static func downloadFile(from urlString: String, sessionType: ServiceURLSession = .default, handler: @escaping(Result<Data?, ServiceNetworkError>) -> Void) {
+        
+        guard let url = URL(string: urlString) else { return handler(.failure(.invalidURL(urlString: urlString))) }
+        
+        let task = sessionType.sessionWithConfig().dataTask(with: url) { data, response, error in
+            guard let res = response as? HTTPURLResponse else { return handler(.failure(.requestFail)) }
+            
+            switch res.statusCode {
+            case 200...299:
+                    if let fileData = data {
+                        handler(.success(fileData))
+                    }else {
+                        handler(.failure(.invalidJson(statusCode: res.statusCode, error: error)))
+                    }
+            case 400...499:
+                handler(.failure(.clientError(statusCode: res.statusCode, urlString: urlString)))
+            case 500...599:
+                handler(.failure(.serverError(statusCode: res.statusCode, urlString: urlString)))
+            default:
+                handler(.failure(.hostDown))
+            }
+            
+        }
+        task.resume()
     }
     
 }

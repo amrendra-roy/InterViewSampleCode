@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class ViewController: BaseViewController {
+class HomeViewController: BaseViewController {
     
     var viewModel: ViewModel!
     

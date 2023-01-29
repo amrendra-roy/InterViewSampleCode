@@ -29,13 +29,28 @@ class ListTableViewCell: UITableViewCell {
         headingLbl.text = model.photoID.description
         subTitleLbl.text = model.title
         
-        downloadImage(from: model.thumbanilSmallUrl)
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            self?.downloadImage(from: model.thumbanilSmallUrl)
+        }
     }
     
     private func downloadImage(from url: String?) {
         guard let urlString = url else { return }
-        // #ToDo download images
         
+        ServiceManager.downloadFile(from: urlString) { result in //Result<Data?, ServiceNetworkError>
+            switch result {
+            case .success(let imageData):
+                if let imgData = imageData {
+                    let image = UIImage(data: imgData)
+                    DispatchQueue.main.async {
+                        self.thumbnail.image = image
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
     }
     
 }
